@@ -1,7 +1,5 @@
 node_modules
 .env
-<<<<<<< HEAD
-=======
 .env.local
 .env.development.local
 .env.test.local
@@ -9,4 +7,3 @@ node_modules
 .env.development
 .env.test
 .env.production
->>>>>>> 9ccb32ec1050e188832a891f0df9b7b584cbff73
