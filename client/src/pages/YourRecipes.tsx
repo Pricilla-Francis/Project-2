@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { retrieveRecipes, createRecipe } from '../api/recipeAPI';
+import { retrieveRecipes, createRecipe, updateRecipe, deleteRecipe } from '../api/recipeAPI';
 import type { Recipe } from '../interfaces/Recipe';
 import auth from '../utils/auth';
 
 const YourRecipes = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [showForm, setShowForm] = useState(false);
+  const [editingRecipe, setEditingRecipe] = useState<Recipe | null>(null);
   const [formData, setFormData] = useState({
     title: '',
     mealType: 'Breakfast',
@@ -40,8 +41,19 @@ const YourRecipes = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await createRecipe(formData);
+      if (editingRecipe) {
+        await updateRecipe(editingRecipe.id, {
+          ...formData,
+          mealType: formData.mealType as "Breakfast" | "Lunch/Dinner" | "Dessert"
+        });
+      } else {
+        await createRecipe({
+          ...formData,
+          mealType: formData.mealType as "Breakfast" | "Lunch/Dinner" | "Dessert"
+        });
+      }
       setShowForm(false);
+      setEditingRecipe(null);
       setFormData({
         title: '',
         mealType: 'Breakfast',
@@ -51,8 +63,43 @@ const YourRecipes = () => {
       });
       fetchRecipes();
     } catch (err) {
-      console.error('Failed to create recipe:', err);
+      console.error('Failed to save recipe:', err);
     }
+  };
+
+  const handleEdit = (recipe: Recipe) => {
+    setEditingRecipe(recipe);
+    setFormData({
+      title: recipe.title,
+      mealType: recipe.mealType,
+      region: recipe.region,
+      ingredients: recipe.ingredients,
+      instructions: recipe.instructions
+    });
+    setShowForm(true);
+  };
+
+  const handleDelete = async (id: number) => {
+    if (window.confirm('Are you sure you want to delete this recipe?')) {
+      try {
+        await deleteRecipe(id);
+        fetchRecipes();
+      } catch (err) {
+        console.error('Failed to delete recipe:', err);
+      }
+    }
+  };
+
+  const handleCancel = () => {
+    setShowForm(false);
+    setEditingRecipe(null);
+    setFormData({
+      title: '',
+      mealType: 'Breakfast',
+      region: '',
+      ingredients: '',
+      instructions: ''
+    });
   };
 
   if (!auth.loggedIn()) {
@@ -73,7 +120,7 @@ const YourRecipes = () => {
       {showForm && (
         <form onSubmit={handleSubmit} className="card mb-4">
           <div className="card-body">
-            <h2>Add New Recipe</h2>
+            <h2>{editingRecipe ? 'Edit Recipe' : 'Add New Recipe'}</h2>
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <input
@@ -142,9 +189,14 @@ const YourRecipes = () => {
               />
             </div>
 
-            <button type="submit" className="btn btn-primary">
-              Save Recipe
-            </button>
+            <div className="flex justify-end space-x-4">
+              <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                Cancel
+              </button>
+              <button type="submit" className="btn btn-primary">
+                {editingRecipe ? 'Update Recipe' : 'Save Recipe'}
+              </button>
+            </div>
           </div>
         </form>
       )}
@@ -154,7 +206,23 @@ const YourRecipes = () => {
           <div key={recipe.id} className="col-md-6 mb-4">
             <div className="card">
               <div className="card-body">
-                <h3>{recipe.title}</h3>
+                <div className="flex justify-between items-start mb-4">
+                  <h3>{recipe.title}</h3>
+                  <div className="space-x-2">
+                    <button
+                      onClick={() => handleEdit(recipe)}
+                      className="btn btn-sm btn-primary"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(recipe.id)}
+                      className="btn btn-sm btn-danger"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
                 <p><strong>Meal Type:</strong> {recipe.mealType}</p>
                 <p><strong>Region:</strong> {recipe.region}</p>
                 <h4>Ingredients:</h4>
