@@ -1,8 +1,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import Auth from '../utils/auth';  // Import the Auth utility for managing authentication state
-import { login } from "../api/authAPI";  // Import the login function from the API
 import { UserLogin } from "../interfaces/UserLogin";  // Import the interface for UserLogin
 
 const Login = () => {
@@ -27,7 +26,14 @@ const Login = () => {
     e.preventDefault();
     try {
       // Call the login API endpoint with loginData
-      const data = await login(loginData);
+      const response = await fetch('/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(loginData)
+      });
+      const data = await response.json();
       // If login is successful, call Auth.login to store the token in localStorage
       Auth.login(data.token);
       navigate('/recipes');
@@ -65,6 +71,11 @@ const Login = () => {
         {/* Submit button for the login form */}
         <div className="form-group">
           <button className="btn btn-primary" type='submit'>Login</button>
+        </div>
+        <div className="form-group">
+          <Link to="/register">
+            <button className="btn btn-secondary" type="button">Register</button>
+          </Link>
         </div>
       </form>
     </div>
