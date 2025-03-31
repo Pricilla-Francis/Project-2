@@ -95,12 +95,30 @@ body {
 /* Form Styles */
 input, textarea {
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.75rem;
   margin-bottom: 1rem;
   border: 1px solid #404040;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   background-color: #2d2d2d;
   color: #ffffff;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 250px;
+}
+
+textarea::placeholder {
+  color: #9ca3af;
 }
 
 /* Card Styles */

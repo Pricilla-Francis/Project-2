@@ -138,7 +138,7 @@ export default function EditRecipe() {
                       value={formData.ingredients}
                       onChange={handleChange}
                       required
-                      className="min-h-[200px] bg-dark-surface border-dark-border text-dark-text"
+                      className="bg-dark-surface border-dark-border text-dark-text"
                     />
                   </div>
 
@@ -150,7 +150,7 @@ export default function EditRecipe() {
                       value={formData.instructions}
                       onChange={handleChange}
                       required
-                      className="min-h-[200px] bg-dark-surface border-dark-border text-dark-text"
+                      className="bg-dark-surface border-dark-border text-dark-text"
                     />
                   </div>
 

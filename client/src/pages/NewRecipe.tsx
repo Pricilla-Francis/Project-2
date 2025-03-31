@@ -113,7 +113,7 @@ export default function NewRecipe() {
                       value={formData.ingredients}
                       onChange={handleChange}
                       required
-                      className="min-h-[200px] bg-dark-surface border-dark-border text-dark-text"
+                      className="bg-dark-surface border-dark-border text-dark-text"
                       placeholder="Enter ingredients (one per line)"
                     />
                   </div>
@@ -126,7 +126,7 @@ export default function NewRecipe() {
                       value={formData.instructions}
                       onChange={handleChange}
                       required
-                      className="min-h-[200px] bg-dark-surface border-dark-border text-dark-text"
+                      className="bg-dark-surface border-dark-border text-dark-text"
                       placeholder="Enter cooking instructions"
                     />
                   </div>
