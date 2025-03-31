@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { getRecipe, updateRecipe } from '../api/recipeAPI';
 import { type Recipe, MealTypes } from '../interfaces/Recipe';
-import { Button, Input, Textarea, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Card, CardHeader, CardTitle, CardContent } from '../components/ui';
+import { Button, Input, Textarea, Label, Card, CardHeader, CardTitle, CardContent } from '../components/ui';
 
 export default function EditRecipe() {
   const { user } = useAuth();
@@ -45,7 +45,7 @@ export default function EditRecipe() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -115,21 +115,19 @@ export default function EditRecipe() {
 
                   <div className="space-y-2">
                     <Label htmlFor="mealType" className="text-dark-text">Meal Type</Label>
-                    <Select
+                    <select
+                      id="mealType"
+                      name="mealType"
                       value={formData.mealType}
-                      onValueChange={(value: typeof MealTypes[keyof typeof MealTypes]) => setFormData(prev => ({ ...prev, mealType: value }))}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 bg-dark-surface border border-dark-border text-dark-text rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-primary"
                     >
-                      <SelectTrigger className="bg-dark-surface border-dark-border text-dark-text">
-                        <SelectValue placeholder="Select meal type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {Object.values(MealTypes).map((type) => (
-                          <SelectItem key={type} value={type}>
-                            {type}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                      {Object.values(MealTypes).map((type) => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="space-y-2">
