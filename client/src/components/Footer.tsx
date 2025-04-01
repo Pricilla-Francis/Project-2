@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const teamMembers = [
     {
@@ -67,18 +68,17 @@ const TeamMemberCard: React.FC<{ member: TeamMember }> = ({ member }) => {
     );
 };
 
-const MeetTheTeam = () => {
+const Footer = () => {
     return (
-        <section className="py-12 text-center">
-            <h2 className="text-3xl font-bold text-gray-800">Meet the Team</h2>
-            <p className="text-gray-600 mb-8">Our talented professionals making things happen.</p>
-            <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
-                {teamMembers.map((member, index) => (
-                    <TeamMemberCard key={index} member={member} />
-                ))}
+        <footer style={{ border: "1px solid black", width: "100%", position: "fixed", height: "5rem", bottom: 0, display: "flex", "justifyContent": "center" }}>
+            <div className="links" style={{ display: "flex", "justifyContent": "space-between", width: "70%", color: "orange" }}>
+                <Link to="/team">Meet The Team</Link>
+                <a href="">About MunchMap</a>
+                <a href="">Contact Us</a>
+                <a href="">Social Media</a>
             </div>
-        </section>
+        </footer>
     );
 };
 
-export default MeetTheTeam;
+export default Footer;
