@@ -54,6 +54,10 @@ const SearchRecipes = () => {
 
   const handleSaveRecipe = async (recipe: SpoonacularRecipe) => {
     try {
+      if (!user) {
+        throw new Error('You must be logged in to save recipes');
+      }
+
       // Fetch detailed recipe information
       const details = await getRecipeDetails(recipe.id);
       
@@ -65,13 +69,14 @@ const SearchRecipes = () => {
         instructions: details.instructions,
         mealType: MealTypes.LunchDinner,
         region: 'International',
-        userId: user!.id
+        userId: user.id
       });
       
       alert('Recipe saved successfully!');
     } catch (err) {
       console.error('Save error:', err);
-      alert('Failed to save recipe. Please try again.');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to save recipe. Please try again.';
+      alert(errorMessage);
     }
   };
 

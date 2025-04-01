@@ -1,10 +1,10 @@
 import type { Recipe } from '../interfaces/Recipe';
 
+const API_BASE_URL = 'http://localhost:3001';
+
 const getAuthToken = () => {
   return localStorage.getItem('token');
 };
-
-const API_BASE_URL = 'http://localhost:3001';
 
 export const getRecipes = async (): Promise<Recipe[]> => {
   try {
@@ -16,19 +16,21 @@ export const getRecipes = async (): Promise<Recipe[]> => {
     const response = await fetch(`${API_BASE_URL}/api/recipes`, {
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
         Authorization: `Bearer ${token}`
-      }
+      },
+      credentials: 'include'
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch recipes');
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to fetch recipes');
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (err) {
-    console.log('Error from recipe retrieval:', err);
-    return [];
+    console.error('Error fetching recipes:', err);
+    throw err;
   }
 };
 
@@ -43,18 +45,21 @@ export const createRecipe = async (recipeData: Omit<Recipe, 'id' | 'createdAt' |
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json',
         Authorization: `Bearer ${token}`
       },
+      credentials: 'include',
       body: JSON.stringify(recipeData)
     });
 
     if (!response.ok) {
-      throw new Error('Failed to create recipe');
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Failed to create recipe');
     }
 
     return await response.json();
   } catch (err) {
-    console.log('Error from recipe creation:', err);
+    console.error('Error creating recipe:', err);
     throw err;
   }
 };
