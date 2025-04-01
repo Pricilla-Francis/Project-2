@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getRecipes, deleteRecipe } from '../api/recipeAPI';
 import { MealTypes } from '../interfaces/Recipe';
+import '../styles/Yourrecipes.css';
 
 interface Recipe {
   id: number;
