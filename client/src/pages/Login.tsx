@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import '../styles/Login.css'; 
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-dark-background px-4">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h2 className="text-4xl font-bold text-dark-text">Welcome Back</h2>
+          <h2 className="welcome">Welcome Back</h2>
           <p className="mt-2 text-dark-text-muted">
             Please sign in to your account
           </p>

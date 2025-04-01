@@ -11,8 +11,8 @@
  
 }
 
-.container navbar-container{
-  
+.navbar-container{
+  background-origin: white;
 }
 
 *{
@@ -20,11 +20,10 @@
   padding: 0;
   align-items: center;
   text-align: center;
-  background-color: #841277;
-  color: white;
+
 }
 
-.btn{
+.btn-danger{
   color: var(--heliotrope);
   color: white;
 }
