@@ -48,6 +48,23 @@ body {
   width: 100%;
 }
 
+/* Add specific styles for auth pages */
+.auth-page {
+  min-height: 100vh;
+  padding-top: 60px; /* Reduced from 80px */
+  display: flex;
+  align-items: flex-start; /* Changed from center to flex-start */
+  justify-content: center;
+  background-color: #1a1a1a;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 24rem; /* Reduced from 28rem */
+  padding: 1.5rem; /* Reduced from 2rem */
+  margin: 0 auto;
+}
+
 .navbar-container {
   display: flex;
   justify-content: space-between;
