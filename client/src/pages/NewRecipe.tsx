@@ -5,6 +5,31 @@ import { createRecipe } from '../api/recipeAPI';
 import { type Recipe, MealTypes } from '../interfaces/Recipe';
 import { Button, Input, Card, CardContent, CardHeader, CardTitle, Textarea, Label } from '../components/ui';
 
+const REGIONS = [
+  'All Regions',
+  'Asian',
+  'Mediterranean',
+  'Mexican',
+  'Italian',
+  'Indian',
+  'Middle Eastern',
+  'Caribbean',
+  'African',
+  'Latin American',
+  'European',
+  'American',
+  'Japanese',
+  'Chinese',
+  'Thai',
+  'Greek',
+  'Spanish',
+  'French',
+  'German',
+  'British',
+  'Fusion',
+  'Other'
+];
+
 type CreateRecipeInput = Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>;
 
 export default function NewRecipe() {
@@ -62,7 +87,7 @@ export default function NewRecipe() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6 new-recipe-form">
                   <div className="space-y-2">
                     <Label htmlFor="title" className="text-dark-text">Recipe Title</Label>
                     <Input
@@ -105,7 +130,25 @@ export default function NewRecipe() {
                     </select>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2 mt-6">
+                    <Label htmlFor="region" className="text-dark-text">Region</Label>
+                    <select
+                      id="region"
+                      name="region"
+                      value={formData.region}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 bg-dark-surface border border-dark-border text-dark-text rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-primary"
+                    >
+                      {REGIONS.map((region) => (
+                        <option key={region} value={region}>
+                          {region}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="space-y-2 mt-6">
                     <Label htmlFor="ingredients" className="text-dark-text">Ingredients</Label>
                     <Textarea
                       id="ingredients"
@@ -113,12 +156,12 @@ export default function NewRecipe() {
                       value={formData.ingredients}
                       onChange={handleChange}
                       required
-                      className="bg-dark-surface border-dark-border text-dark-text"
+                      className="bg-dark-surface border-dark-border text-dark-text h-32"
                       placeholder="Enter ingredients (one per line)"
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2 mt-6">
                     <Label htmlFor="instructions" className="text-dark-text">Instructions</Label>
                     <Textarea
                       id="instructions"
@@ -126,7 +169,7 @@ export default function NewRecipe() {
                       value={formData.instructions}
                       onChange={handleChange}
                       required
-                      className="bg-dark-surface border-dark-border text-dark-text"
+                      className="bg-dark-surface border-dark-border text-dark-text h-32"
                       placeholder="Enter cooking instructions"
                     />
                   </div>
