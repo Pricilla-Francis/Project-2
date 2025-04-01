@@ -3,27 +3,31 @@ import type { Recipe } from '../interfaces/Recipe';
 const API_BASE_URL = 'http://localhost:3001';
 
 const getAuthToken = () => {
-  return localStorage.getItem('token');
+  const token = localStorage.getItem('token');
+  if (!token) {
+    throw new Error('User not authenticated');
+  }
+  return token;
 };
 
 export const getRecipes = async (): Promise<Recipe[]> => {
   try {
     const token = getAuthToken();
-    if (!token) {
-      throw new Error('No authentication token found');
-    }
-
     const response = await fetch(`${API_BASE_URL}/api/recipes`, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        Authorization: `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
       },
       credentials: 'include'
     });
 
     if (!response.ok) {
       const errorData = await response.json();
+      if (response.status === 401) {
+        localStorage.removeItem('token');
+        throw new Error('Session expired. Please log in again.');
+      }
       throw new Error(errorData.message || 'Failed to fetch recipes');
     }
 
@@ -37,16 +41,12 @@ export const getRecipes = async (): Promise<Recipe[]> => {
 export const createRecipe = async (recipeData: Omit<Recipe, 'id' | 'createdAt' | 'updatedAt'>): Promise<Recipe> => {
   try {
     const token = getAuthToken();
-    if (!token) {
-      throw new Error('No authentication token found');
-    }
-
     const response = await fetch(`${API_BASE_URL}/api/recipes`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        Authorization: `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
       },
       credentials: 'include',
       body: JSON.stringify(recipeData)
@@ -54,6 +54,10 @@ export const createRecipe = async (recipeData: Omit<Recipe, 'id' | 'createdAt' |
 
     if (!response.ok) {
       const errorData = await response.json();
+      if (response.status === 401) {
+        localStorage.removeItem('token');
+        throw new Error('Session expired. Please log in again.');
+      }
       throw new Error(errorData.message || 'Failed to create recipe');
     }
 

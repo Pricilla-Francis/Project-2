@@ -21,17 +21,18 @@ router.get('/', async (req: AuthenticatedRequest, res: Response) => {
     });
     return res.json(recipes);
   } catch (error: any) {
-    return res.status(500).json({ message: error.message });
+    console.error('Error fetching recipes:', error);
+    return res.status(500).json({ message: 'Error fetching recipes' });
   }
 });
 
 // GET /recipes/:id - Get a single recipe by ID
 router.get('/:id', async (req: AuthenticatedRequest, res: Response) => {
-  if (!req.userId) {
-    return res.status(401).json({ message: 'User not authenticated' });
-  }
-  const { id } = req.params;
   try {
+    if (!req.userId) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+    const { id } = req.params;
     const recipe = await Recipe.findOne({
       where: { id, userId: req.userId }
     });
@@ -41,78 +42,77 @@ router.get('/:id', async (req: AuthenticatedRequest, res: Response) => {
       return res.status(404).json({ message: 'Recipe not found' });
     }
   } catch (error: any) {
-    return res.status(500).json({ message: error.message });
+    console.error('Error fetching recipe:', error);
+    return res.status(500).json({ message: 'Error fetching recipe' });
   }
 });
 
 // POST /recipes - Create a new recipe
 router.post('/', async (req: AuthenticatedRequest, res: Response) => {
-  if (!req.userId) {
-    return res.status(401).json({ message: 'User not authenticated' });
-  }
-  const { title, mealType, region, ingredients, instructions } = req.body;
   try {
-    const newRecipe = await Recipe.create({
-      title,
-      mealType,
-      region,
-      ingredients,
-      instructions,
+    if (!req.userId) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
+    const recipeData = {
+      ...req.body,
       userId: req.userId
-    });
-    return res.status(201).json(newRecipe);
+    };
+
+    const recipe = await Recipe.create(recipeData);
+    return res.status(201).json(recipe);
   } catch (error: any) {
-    return res.status(400).json({ message: error.message });
+    console.error('Error creating recipe:', error);
+    return res.status(500).json({ message: 'Error creating recipe' });
   }
 });
 
 // PUT /recipes/:id - Update a recipe
 router.put('/:id', async (req: AuthenticatedRequest, res: Response) => {
-  if (!req.userId) {
-    return res.status(401).json({ message: 'User not authenticated' });
-  }
-  const { id } = req.params;
-  const { title, mealType, region, ingredients, instructions } = req.body;
   try {
+    if (!req.userId) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
+    const { id } = req.params;
     const recipe = await Recipe.findOne({
       where: { id, userId: req.userId }
     });
-    if (recipe) {
-      await recipe.update({
-        title,
-        mealType,
-        region,
-        ingredients,
-        instructions
-      });
-      return res.json(recipe);
-    } else {
+
+    if (!recipe) {
       return res.status(404).json({ message: 'Recipe not found' });
     }
+
+    await recipe.update(req.body);
+    return res.json(recipe);
   } catch (error: any) {
-    return res.status(400).json({ message: error.message });
+    console.error('Error updating recipe:', error);
+    return res.status(500).json({ message: 'Error updating recipe' });
   }
 });
 
 // DELETE /recipes/:id - Delete a recipe
 router.delete('/:id', async (req: AuthenticatedRequest, res: Response) => {
-  if (!req.userId) {
-    return res.status(401).json({ message: 'User not authenticated' });
-  }
-  const { id } = req.params;
   try {
+    if (!req.userId) {
+      return res.status(401).json({ message: 'User not authenticated' });
+    }
+
+    const { id } = req.params;
     const recipe = await Recipe.findOne({
       where: { id, userId: req.userId }
     });
-    if (recipe) {
-      await recipe.destroy();
-      return res.json({ message: 'Recipe deleted' });
-    } else {
+
+    if (!recipe) {
       return res.status(404).json({ message: 'Recipe not found' });
     }
+
+    await recipe.destroy();
+    return res.status(204).send();
   } catch (error: any) {
-    return res.status(500).json({ message: error.message });
+    console.error('Error deleting recipe:', error);
+    return res.status(500).json({ message: 'Error deleting recipe' });
   }
 });
 
-export { router as recipeRouter }; 
+export default router; 
