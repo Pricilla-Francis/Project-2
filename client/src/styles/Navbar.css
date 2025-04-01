@@ -5,14 +5,14 @@
   padding: 10px 20px;
   background-color: #841277;
 }
-
-.Navbar h1 {
-  color: white;
+.title-1 {
+  color:#841277;
   font-size: 24px;
   align-items: center;
   text-align: center;
-  font-family: 'Sweet Milk', sans-serif;
-  
+  font-family: 'cursive', serif;
+  background-color: white;
+ 
 }
 
 *{
@@ -21,5 +21,10 @@
   align-items: center;
   text-align: center;
   background-color: #841277;
+  color: white;
+}
+
+.btn{
+  color: var(--heliotrope);
   color: white;
 }
