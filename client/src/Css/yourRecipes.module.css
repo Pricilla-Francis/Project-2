@@ -1,0 +1,67 @@
+
+
+.header {
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px;
+  }
+  
+  .title{
+    color: rgb(228, 137, 228);
+    font-size: 80%;
+
+  }
+  
+  .logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 2rem;
+    color: purple;
+    background-color: white;
+  }
+  
+  
+ 
+  .navLinks {
+    color: black;
+    background-color: white;
+    padding: 10px;
+    margin: 0; 
+    gap: 15px;
+    display: flex; 
+    justify-content: center;
+    list-style: none; 
+    font-size: 25px;
+  }
+
+  .navButtons{
+    margin: 10px;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    color: black;
+    
+
+  }
+
+  .motto{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(228, 137, 228);
+  }
+
+  .footer{
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(228, 137, 228);
+    width: 100%;
+    flex: 1;
+  }
