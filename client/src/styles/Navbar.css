@@ -1,11 +1,7 @@
-.Navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #841277;
+.navbar {
+  background-color:white;
 }
-.title-1 {
+.navbar-brand {
   color:#841277;
   font-size: 24px;
   align-items: center;
@@ -13,6 +9,10 @@
   font-family: 'cursive', serif;
   background-color: white;
  
+}
+
+.container navbar-container{
+  
 }
 
 *{
