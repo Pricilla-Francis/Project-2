@@ -152,24 +152,32 @@ textarea::placeholder {
   font-weight: bold;
   margin-bottom: 2rem;
   color: #ffffff;
+  padding-top: 2rem;
 }
 
 .search-form {
   margin-bottom: 2rem;
+  background-color: #2d2d2d;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-container {
   display: flex;
   gap: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .search-input {
   flex: 1;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  background-color: #2d2d2d;
+  background-color: #1a1a1a;
   border: 1px solid #404040;
   color: #ffffff;
+  font-size: 1rem;
 }
 
 .search-input::placeholder {
@@ -182,24 +190,50 @@ textarea::placeholder {
   box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
 }
 
+.search-container button {
+  padding: 0.75rem 1.5rem;
+  background-color: #10b981;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.search-container button:hover {
+  background-color: #059669;
+}
+
+.search-container button:disabled {
+  background-color: #4b5563;
+  cursor: not-allowed;
+}
+
 .error-message {
   padding: 1rem;
   margin-bottom: 2rem;
   background-color: rgba(220, 38, 38, 0.1);
   border-left: 4px solid #dc2626;
   color: #ffffff;
+  border-radius: 0.5rem;
 }
 
 .empty-state {
   color: #9ca3af;
   text-align: center;
   font-size: 1.125rem;
+  padding: 2rem;
+  background-color: #2d2d2d;
+  border-radius: 0.5rem;
+  margin: 2rem 0;
 }
 
 .recipe-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
+  padding: 1rem 0;
 }
 
 .recipe-card {
