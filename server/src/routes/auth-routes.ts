@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { User } from '../models/index.js';  // Fixed import path
-import jwt from 'jsonwebtoken';  // Import the JSON Web Token library
-import bcrypt from 'bcrypt';  // Import the bcrypt library for password hashing
+import * as jwt from 'jsonwebtoken';  // Import the JSON Web Token library
+import * as bcrypt from 'bcrypt';  // Import the bcrypt library for password hashing
 
 // Login function to authenticate a user
 export const login = async (req: Request, res: Response) => {

@@ -1,40 +1,40 @@
 const teamMembers = [
     {
-        name: "Timothy Strauch",
-        role: "Software Engineer",
+        name: <h1>Timothy Strauch</h1>,
+        role: "Role: Software Engineer - HTML Stylist",
         description: "I'm from Atlanta, Georgia. I am a software engineer with a passion for building web applications and learning new technologies.",
-        linkedin: "Project 2",
-    },
-    {
-        name: "Edward Oreilly",
-        role: "Software Engineer",
-        description: "I'm from the West Coast. I am a software engineer with a passion for building web applications and learning new technologies.",
-        linkedin: "Project 2",
-    },
-    {
-        name: "Scott King",
-        role: "Software Engineer",
-        description: "I'm from Detriot, Michigan. I am a software engineer with a passion for building web applications and learning new technologies.",
-        linkedin: "Project 2",
-    },
-    {
-        name: "Lexus Nealy",
-        role: "Software Engineer",
-        description: "I'm from Mississippi. I am a software engineer with a passion for building web applications and learning new technologies.",
-        linkedin: "Project 2",
 
     },
     {
-        name: "Priscilla Francis",
-        role: "Software Engineer",
-        description: "I'm from the East Coast. I am a software engineer with a passion for building web applications and learning new technologies.",
-        linkedin: "Project 2",
+        name: <h1>Edward Oreilly</h1>,
+        role: "Role: Software Engineer - Back End Developer",
+        description: "I'm from the West Coast. I am a software engineer with a passion for building web applications and learning new technologies.",
+
     },
     {
-        name: "Danah Ballard",
-        role: "Software Engineer",
+        name: <h1>Scott King</h1>,
+        role: "Role: Software Engineer - Back End Developer",
+        description: "I'm from Detriot, Michigan. I am a software engineer with a passion for building web applications and learning new technologies.",
+
+    },
+    {
+        name: <h1>Lexus Nealy</h1>,
+        role: "Role: Software Engineer - CSS Stylist",
+        description: "I'm from Mississippi. I am a software engineer with a passion for building web applications and learning new technologies.",
+
+
+    },
+    {
+        name: <h1>Pricilla Francis</h1>,
+        role: "Role: Software Engineer - CSS Stylist",
+        description: "I'm from the East Coast. I am a software engineer with a passion for building web applications and learning new technologies.",
+
+    },
+    {
+        name: <h1>Danah Ballard</h1>,
+        role: "Role: Software Engineer - HTML Stylist",
         description: "I'm from Miami, Florida. I am a software engineer with a passion for building web applications and learning new technologies.",
-        linkedin: "Project 2",
+
     },
 ];
 
@@ -48,6 +48,7 @@ const Team = () => {
                         <p>{member.name}</p>
                         <p>{member.role}</p>
                         <p>{member.description}</p>
+
                     </div>
                 )
             })}

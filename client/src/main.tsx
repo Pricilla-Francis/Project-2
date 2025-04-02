@@ -9,6 +9,9 @@ import Home from './pages/Home.tsx';
 import Login from './pages/Login.tsx';
 import YourRecipes from './pages/YourRecipes.tsx';
 import Team from './pages/Team.tsx';
+import Privacy from './pages/Privacy.tsx';
+import AboutUs from './pages/Aboutus.tsx';
+import ContactUs from './pages/Contactus.tsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +34,18 @@ const router = createBrowserRouter([
       {
         path: "/team",
         element: <Team />
+      },
+      {
+        path: "/privacy",
+        element: <Privacy />
+      },
+      {
+        path: "/aboutus",
+        element: <AboutUs />
+      },
+      {
+        path: "/contactus",
+        element: <ContactUs />
       }
     ]
   }
