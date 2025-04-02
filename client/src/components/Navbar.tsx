@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../utils/auth';
@@ -6,58 +7,62 @@ import styles from '../Css/yourRecipes.module.css'
 import Motto from './motto';
 
 
+import { useAuth } from '../context/AuthContext';
+import '../styles/Navbar.css';
 
 const Navbar = () => {
-  const [loginCheck, setLoginCheck] = useState(false);
-  
-  const checkLogin = () => {
-    if (auth.loggedIn()) {
-      setLoginCheck(true);
-    }
-  };
- 
+  const { user, logout } = useAuth();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
- 
   useEffect(() => {
-    checkLogin();  
-  }, [loginCheck]);  
+    setIsLoggedIn(!!user);
+  }, [user]);
+
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
-    <div >
-      <div className={styles.header}>
-        <div >
-         <div className={styles.title}>
-           <Title/>
-         </div>
+    <nav className="navbar">
+      <div className="container navbar-container">
+        <div className="navbar-links">
+          <Link to="/" className="navbar-brand">
+            Recipe App
+          </Link>
+          {isLoggedIn && (
+            <>
+              <Link to="/recipes" className="navbar-link">
+                My Recipes
+              </Link>
+              <Link to="/search" className="navbar-link">
+                Search Recipes
+              </Link>
+              <Link to="/recipes/new" className="navbar-link">
+                New Recipe
+              </Link>
+            </>
+          )}
         </div>
-        <div className={styles.navLinks} >
-          <ul className={styles.navLinks}>
-            <li className={styles.navButtons}><Link to=''>Home</Link></li>
-            <li className={styles.navButtons}><Link to=''>Recipes</Link></li>
-            <li className={styles.navButtons}><Link to=''>About</Link></li>
-            <li className={styles.navButtons}><Link to=''>MEAT THE TEAM</Link></li>
-          </ul>
-          <div >
-        {
-          !loginCheck ? (
-            
-            <button type='button'className={styles.logout}>
-              <Link to='/login'>Login</Link>
+        <div>
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className="btn btn-danger"
+            >
+              Logout
             </button>
           ) : (
-            <button  className={styles.logout} type='button' onClick={() => {
-              auth.logout();  
-            }}>Logout</button>
-          )
-        }
-          </div>
+            <Link
+              to="/login"
+              className="btn btn-primary"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
-      <div className={styles.motto}>
-        <Motto/>
-      </div>
-    </div>
-   
-  )
-}
+    </nav>
+  );
+};
 
 export default Navbar;
