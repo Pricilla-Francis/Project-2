@@ -1,5 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { createContext, useContext, useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 const AuthContext = createContext(undefined);
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
     const fetchUserData = async (token) => {
         try {
-            const response = await fetch('http://localhost:3001/api/auth/me', {
+            const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Accept': 'application/json',
@@ -34,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     };
     const login = async (username, password) => {
         try {
-            const response = await fetch('http://localhost:3001/api/auth/login', {
+            const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

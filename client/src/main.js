@@ -1,8 +1,12 @@
 import { jsx as _jsx } from "react/jsx-runtime";
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import { AuthProvider } from './context/AuthContext';
+import './Styles/Navbar.css';
+import './Styles/Footer.css';
+import "@fortawesome/fontawesome-free/css/all.css";
 import App from './App';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
@@ -69,4 +73,4 @@ const router = createBrowserRouter([
         ]
     }
 ]);
-ReactDOM.createRoot(document.getElementById('root')).render(_jsx(RouterProvider, { router: router }));
+ReactDOM.createRoot(document.getElementById('root')).render(_jsx(React.StrictMode, { children: _jsx(RouterProvider, { router: router }) }));

@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3001';
+import { API_BASE_URL } from '../config';
 // Function to send a POST request to the '/auth/login' endpoint with user login information
 const login = async (userInfo) => {
     try {

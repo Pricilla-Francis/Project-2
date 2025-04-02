@@ -1,5 +1,6 @@
 export const MealTypes = {
     Breakfast: 'Breakfast',
     LunchDinner: 'Lunch/Dinner',
-    Dessert: 'Dessert'
+    Dessert: 'Dessert',
+    Snack: 'Snack'
 };

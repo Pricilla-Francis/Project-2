@@ -2,6 +2,7 @@ export declare const MealTypes: {
     readonly Breakfast: "Breakfast";
     readonly LunchDinner: "Lunch/Dinner";
     readonly Dessert: "Dessert";
+    readonly Snack: "Snack";
 };
 export type MealType = typeof MealTypes[keyof typeof MealTypes];
 export interface Recipe {
