@@ -3,6 +3,7 @@ import { searchRecipes, getRecipeDetails } from '../api/spoonacularAPI';
 import { createRecipe } from '../api/recipeAPI';
 import { useAuth } from '../context/AuthContext';
 import { MealTypes } from '../interfaces/Recipe';
+import { useNavigate } from 'react-router-dom';
 
 interface SpoonacularRecipe {
   id: number;
@@ -16,6 +17,7 @@ const STORAGE_KEY = 'lastSearchResults';
 
 const SearchRecipes = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [recipes, setRecipes] = useState<SpoonacularRecipe[]>([]);
   const [loading, setLoading] = useState(false);
@@ -55,23 +57,34 @@ const SearchRecipes = () => {
   const handleSaveRecipe = async (recipe: SpoonacularRecipe) => {
     try {
       if (!user) {
-        throw new Error('You must be logged in to save recipes');
+        navigate('/login');
+        return;
       }
 
       // Fetch detailed recipe information
       const details = await getRecipeDetails(recipe.id);
       
+      if (!details) {
+        throw new Error('Failed to fetch recipe details');
+      }
+
       // Create recipe with all required fields
-      await createRecipe({
-        title: details.title,
-        image: details.image,
-        ingredients: details.extendedIngredients.map(ing => ing.original).join('\n'),
-        instructions: details.instructions,
+      const newRecipe = {
+        title: details.title || recipe.title,
+        image: details.image || recipe.image,
+        ingredients: details.extendedIngredients?.map(ing => ing.original).join('\n') || 'Ingredients not available',
+        instructions: details.instructions || 'Instructions not available',
         mealType: MealTypes.LunchDinner,
         region: 'International',
         userId: user.id
-      });
+      };
+
+      const savedRecipe = await createRecipe(newRecipe);
       
+      if (!savedRecipe) {
+        throw new Error('Failed to save recipe');
+      }
+
       alert('Recipe saved successfully!');
     } catch (err) {
       console.error('Save error:', err);
@@ -103,51 +116,22 @@ const SearchRecipes = () => {
         </div>
       </form>
 
-      {error && (
-        <div className="error-message">
-          {error}
-        </div>
-      )}
+      {error && <div className="error-message">{error}</div>}
 
-      {recipes.length === 0 && !loading && !error ? (
-        <p className="empty-state">
-          Search for recipes using ingredients you have!
-        </p>
-      ) : (
-        <div className="recipe-grid">
-          {recipes.map((recipe) => (
-            <div
-              key={recipe.id}
-              className="card recipe-card"
+      <div className="recipes-grid">
+        {recipes.map((recipe) => (
+          <div key={recipe.id} className="recipe-card">
+            <img src={recipe.image} alt={recipe.title} />
+            <h3>{recipe.title}</h3>
+            <button
+              onClick={() => handleSaveRecipe(recipe)}
+              className="btn btn-secondary"
             >
-              <img
-                src={recipe.image}
-                alt={recipe.title}
-                className="recipe-image"
-              />
-              <div className="recipe-content">
-                <h3 className="recipe-title">
-                  {recipe.title}
-                </h3>
-                <div className="recipe-info">
-                  <span className="recipe-stat">
-                    {recipe.usedIngredientCount} ingredients matched
-                  </span>
-                  <span className="recipe-stat">
-                    {recipe.missedIngredientCount} ingredients needed
-                  </span>
-                </div>
-                <button
-                  onClick={() => handleSaveRecipe(recipe)}
-                  className="btn btn-primary"
-                >
-                  Save Recipe
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+              Save Recipe
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

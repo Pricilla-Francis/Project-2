@@ -95,26 +95,31 @@ export const updateRecipe = async (id: number, recipeData: Partial<Recipe>): Pro
   }
 };
 
-export const deleteRecipe = async (id: number): Promise<void> => {
+export const deleteRecipe = async (id: number): Promise<boolean> => {
   try {
     const token = getAuthToken();
-    if (!token) {
-      throw new Error('No authentication token found');
-    }
-
     const response = await fetch(`${API_BASE_URL}/api/recipes/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include'
     });
 
     if (!response.ok) {
-      throw new Error('Failed to delete recipe');
+      const errorData = await response.json();
+      if (response.status === 401) {
+        localStorage.removeItem('token');
+        throw new Error('Session expired. Please log in again.');
+      }
+      throw new Error(errorData.message || 'Failed to delete recipe');
     }
+
+    return true;
   } catch (err) {
-    console.log('Error from recipe deletion:', err);
+    console.error('Error deleting recipe:', err);
     throw err;
   }
 };

@@ -71,48 +71,22 @@ const TeamMemberCard: React.FC<{ member: TeamMember }> = ({ member }) => {
 
 const Footer = () => {
     return (
-        <footer
-            style={{
-                border: "1px solid black",
-                width: "100%",
-                position: "fixed",
-                height: "4rem",
-                bottom: 0,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center", // Ensures vertical alignment
-            }}
-        >
-            <div
-                className="links"
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center", // Ensures vertical alignment for child elements
-                    width: "70%",
-                    color: "orange",
-                }}
-            >
-                <Link to="/team">Meet The Team</Link>
-                <Link to="/aboutus">About MunchMap</Link>
-                <Link to="/contactus">Contact Us</Link>
-                <Link to="/privacy" className="text-blue-600">
-                    Privacy
-                </Link>
-                <div
-                    style={{
-                        display: "flex",
-                        gap: "1rem",
-                        alignItems: "center", // Ensures icons are vertically aligned
-                    }}
-                >
-                    <a href="https://twitter.com" className="text-blue-500">
+        <footer className="footer">
+            <div className="footer-content">
+                <div className="footer-links">
+                    <Link to="/team">Meet The Team</Link>
+                    <Link to="/aboutus">About MunchMap</Link>
+                    <Link to="/contactus">Contact Us</Link>
+                    <Link to="/privacy">Privacy</Link>
+                </div>
+                <div className="footer-social">
+                    <a href="https://twitter.com" className="social-link">
                         <i className="fab fa-twitter"></i>
                     </a>
-                    <a href="https://linkedin.com" className="text-blue-700">
+                    <a href="https://linkedin.com" className="social-link">
                         <i className="fab fa-linkedin"></i>
                     </a>
-                    <a href="https://facebook.com" className="text-blue-600">
+                    <a href="https://facebook.com" className="social-link">
                         <i className="fab fa-facebook"></i>
                     </a>
                 </div>

@@ -5,9 +5,9 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className='container pt-5'>
+      <main className="flex-grow container mx-auto px-4 py-8">
         <Outlet />
       </main>
       <Footer />

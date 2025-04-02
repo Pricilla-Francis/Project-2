@@ -6,7 +6,6 @@ import { type Recipe, MealTypes } from '../interfaces/Recipe';
 import { Button, Input, Card, CardContent, CardHeader, CardTitle, Textarea, Label } from '../components/ui';
 
 const REGIONS = [
-  'All Regions',
   'Asian',
   'Mediterranean',
   'Mexican',
@@ -41,10 +40,11 @@ export default function NewRecipe() {
     instructions: '',
     mealType: MealTypes.LunchDinner,
     region: 'International',
-    userId: user!.id,
+    userId: user?.id || 0,
     image: ''
   });
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -57,14 +57,30 @@ export default function NewRecipe() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setIsSubmitting(true);
 
     try {
-      await createRecipe(formData);
+      if (!user) {
+        throw new Error('You must be logged in to create a recipe');
+      }
+
+      const recipeData = {
+        ...formData,
+        userId: user.id
+      };
+
+      await createRecipe(recipeData);
       navigate('/recipes');
     } catch (err) {
       console.error('Submit error:', err);
-      setError('Failed to create recipe. Please try again.');
+      setError(err instanceof Error ? err.message : 'Failed to create recipe. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
+  const handleCancel = () => {
+    navigate('/recipes');
   };
 
   return (
@@ -102,14 +118,28 @@ export default function NewRecipe() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="image" className="text-dark-text">Image URL</Label>
-                    <Input
-                      id="image"
-                      name="image"
-                      value={formData.image}
+                    <Label htmlFor="ingredients" className="text-dark-text">Ingredients</Label>
+                    <Textarea
+                      id="ingredients"
+                      name="ingredients"
+                      value={formData.ingredients}
                       onChange={handleChange}
+                      required
                       className="bg-dark-surface border-dark-border text-dark-text"
-                      placeholder="Enter image URL"
+                      placeholder="Enter ingredients (one per line)"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="instructions" className="text-dark-text">Instructions</Label>
+                    <Textarea
+                      id="instructions"
+                      name="instructions"
+                      value={formData.instructions}
+                      onChange={handleChange}
+                      required
+                      className="bg-dark-surface border-dark-border text-dark-text"
+                      placeholder="Enter cooking instructions"
                     />
                   </div>
 
@@ -120,17 +150,17 @@ export default function NewRecipe() {
                       name="mealType"
                       value={formData.mealType}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 bg-dark-surface border border-dark-border text-dark-text rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-primary"
+                      required
+                      className="w-full p-2 bg-dark-surface border border-dark-border text-dark-text rounded"
                     >
-                      {Object.values(MealTypes).map((type) => (
-                        <option key={type} value={type}>
-                          {type}
-                        </option>
-                      ))}
+                      <option value={MealTypes.Breakfast}>Breakfast</option>
+                      <option value={MealTypes.LunchDinner}>Lunch/Dinner</option>
+                      <option value={MealTypes.Snack}>Snack</option>
+                      <option value={MealTypes.Dessert}>Dessert</option>
                     </select>
                   </div>
 
-                  <div className="space-y-2 mt-6">
+                  <div className="space-y-2">
                     <Label htmlFor="region" className="text-dark-text">Region</Label>
                     <select
                       id="region"
@@ -138,7 +168,7 @@ export default function NewRecipe() {
                       value={formData.region}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 bg-dark-surface border border-dark-border text-dark-text rounded-lg focus:outline-none focus:ring-2 focus:ring-dark-primary"
+                      className="w-full p-2 bg-dark-surface border border-dark-border text-dark-text rounded"
                     >
                       {REGIONS.map((region) => (
                         <option key={region} value={region}>
@@ -148,45 +178,34 @@ export default function NewRecipe() {
                     </select>
                   </div>
 
-                  <div className="space-y-2 mt-6">
-                    <Label htmlFor="ingredients" className="text-dark-text">Ingredients</Label>
-                    <Textarea
-                      id="ingredients"
-                      name="ingredients"
-                      value={formData.ingredients}
+                  <div className="space-y-2">
+                    <Label htmlFor="image" className="text-dark-text">Image URL</Label>
+                    <Input
+                      id="image"
+                      name="image"
+                      value={formData.image}
                       onChange={handleChange}
-                      required
-                      className="bg-dark-surface border-dark-border text-dark-text h-32"
-                      placeholder="Enter ingredients (one per line)"
+                      className="bg-dark-surface border-dark-border text-dark-text"
+                      placeholder="Enter image URL (optional)"
                     />
                   </div>
 
-                  <div className="space-y-2 mt-6">
-                    <Label htmlFor="instructions" className="text-dark-text">Instructions</Label>
-                    <Textarea
-                      id="instructions"
-                      name="instructions"
-                      value={formData.instructions}
-                      onChange={handleChange}
-                      required
-                      className="bg-dark-surface border-dark-border text-dark-text h-32"
-                      placeholder="Enter cooking instructions"
-                    />
-                  </div>
-
-                  <div className="flex justify-end gap-4 pt-4">
+                  <div className="flex justify-end gap-4 mt-6">
                     <Button
                       type="button"
-                      onClick={() => navigate('/recipes')}
-                      className="bg-dark-surface border-dark-border text-dark-text hover:bg-dark-surface/80"
+                      onClick={handleCancel}
+                      variant="secondary"
+                      className="z-10"
                     >
                       Cancel
                     </Button>
                     <Button
                       type="submit"
-                      className="bg-dark-primary text-dark-text hover:bg-dark-primary/80"
+                      disabled={isSubmitting}
+                      variant="success"
+                      className="z-10"
                     >
-                      Create Recipe
+                      {isSubmitting ? 'Saving...' : 'Save Recipe'}
                     </Button>
                   </div>
                 </form>
