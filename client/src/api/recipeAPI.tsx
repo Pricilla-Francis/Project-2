@@ -1,6 +1,5 @@
 import type { Recipe } from '../interfaces/Recipe';
-
-const API_BASE_URL = 'http://localhost:3001';
+import { API_BASE_URL } from '../config';
 
 const getAuthToken = () => {
   const token = localStorage.getItem('token');
