@@ -131,7 +131,6 @@ const YourRecipes = () => {
                   <option value="all">All Types</option>
                   <option value={MealTypes.Breakfast}>Breakfast</option>
                   <option value={MealTypes.LunchDinner}>Lunch/Dinner</option>
-                  <option value={MealTypes.Snack}>Snack</option>
                   <option value={MealTypes.Dessert}>Dessert</option>
                 </select>
               </div>
