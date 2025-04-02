@@ -1,7 +1,8 @@
 export const MealTypes = {
   Breakfast: 'Breakfast',
   LunchDinner: 'Lunch/Dinner',
-  Dessert: 'Dessert'
+  Dessert: 'Dessert',
+  Snack: 'Snack'
 } as const;
 
 export type MealType = typeof MealTypes[keyof typeof MealTypes];

@@ -1,5 +1,4 @@
 import { Outlet } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Motto from './components/Motto';
