@@ -4,7 +4,7 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const forceDatabaseRefresh = process.env.NODE_ENV === 'development';
+const forceDatabaseRefresh = false; // Always false for local development
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -22,9 +22,9 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({
   origin: [
     'http://localhost:3000', 
-    'http://127.0.0.1:3000',
-    'https://munchmap.onrender.com',
-    'https://project-2.onrender.com'  // Add your Render deployment URL
+    'http://127.0.0.1:3000'
+    // 'https://munchmap.onrender.com',
+    // 'https://project-2.onrender.com'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -51,15 +51,11 @@ app.use('/api/*', (req: Request, res: Response) => {
 });
 
 // Serves static files in the entire client's dist folder
-const clientDistPath = process.env.NODE_ENV === 'production' 
-  ? join(__dirname, '../client/dist')
-  : join(__dirname, '../../client/dist');
-
-app.use(express.static(clientDistPath));
+app.use(express.static(join(__dirname, '../../client/dist')));
 
 // Catch-all route to handle client-side routing
 app.get('*', (_req, res) => {
-  res.sendFile(join(clientDistPath, 'index.html'));
+  res.sendFile(join(__dirname, '../../client/dist/index.html'));
 });
 
 sequelize.sync({force: forceDatabaseRefresh}).then(async () => {
