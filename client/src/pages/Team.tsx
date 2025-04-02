@@ -2,13 +2,13 @@ const teamMembers = [
     {
         name: <h1>Timothy Strauch</h1>,
         role: "Role: Software Engineer - HTML Stylist",
-        description: "I'm from Atlanta, Georgia. I am a software engineer with a passion for building web applications and learning new technologies.",
+        description: "I'm from Mcdonough, Georgia. I am a software engineer with a passion for building web applications and learning new technologies.",
 
     },
     {
         name: <h1>Edward Oreilly</h1>,
         role: "Role: Software Engineer - Back End Developer",
-        description: "I'm from the West Coast. I am a software engineer with a passion for building web applications and learning new technologies.",
+        description: "I'm from the Houston, Texas. I am a software engineer with a passion for building web applications and learning new technologies.",
 
     },
     {
@@ -20,14 +20,14 @@ const teamMembers = [
     {
         name: <h1>Lexus Nealy</h1>,
         role: "Role: Software Engineer - CSS Stylist",
-        description: "I'm from Mississippi. I am a software engineer with a passion for building web applications and learning new technologies.",
+        description: "I'm from Vicksburg, Mississippi. I am a software engineer with a passion for building web applications and learning new technologies.",
 
 
     },
     {
         name: <h1>Pricilla Francis</h1>,
         role: "Role: Software Engineer - CSS Stylist",
-        description: "I'm from the East Coast. I am a software engineer with a passion for building web applications and learning new technologies.",
+        description: "I'm from Toronto, Canada. I am a software engineer with a passion for building web applications and learning new technologies.",
 
     },
     {
