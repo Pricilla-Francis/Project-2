@@ -1,7 +1,5 @@
 import React from "react";
-import "@fortawesome/fontawesome-free/css/all.css";
 import { Link } from "react-router-dom";
-import '../styles/Footer.css'
 
 const Footer = () => {
     return (

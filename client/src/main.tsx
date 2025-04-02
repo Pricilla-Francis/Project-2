@@ -1,7 +1,11 @@
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import { AuthProvider } from './context/AuthContext';
+import './Styles/navbar.css';
+import './Styles/Footer.css';
+import "@fortawesome/fontawesome-free/css/all.css";
 
 import App from './App';
 
@@ -77,5 +81,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router} />
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );

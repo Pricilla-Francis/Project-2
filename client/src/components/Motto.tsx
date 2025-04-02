@@ -1,6 +1,3 @@
-import '../styles/navbar.css'
-
-
 const Motto = () => {
     return(
         <header>
