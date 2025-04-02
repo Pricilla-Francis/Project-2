@@ -9,14 +9,14 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: process.env.VITE_API_URL || 'http://localhost:3001',
+        target: 'https://munchmap.onrender.com',
         changeOrigin: true,
-        secure: false,
+        secure: true,
       },
       '/auth': {
-        target: process.env.VITE_API_URL || 'http://localhost:3001',
+        target: 'https://munchmap.onrender.com',
         changeOrigin: true,
-        secure: false
+        secure: true
       },
     },
   },

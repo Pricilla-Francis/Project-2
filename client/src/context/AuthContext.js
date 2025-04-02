@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     };
     const signup = async (data) => {
         try {
-            const response = await fetch('http://localhost:3001/api/auth/signup', {
+            const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
