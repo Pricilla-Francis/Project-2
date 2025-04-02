@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-
+import '../Styles/navbar.css'
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -27,9 +27,9 @@ const Navbar = () => {
       <div className="navbar-links">
         {isLoggedIn ? (
           <>
-            <Link to="/recipes" className="nav-link">Your Recipes</Link>
-            <Link to="/new-recipe" className="nav-link">New Recipe</Link>
-            <Link to="/search" className="nav-link">Search Recipes</Link>
+            <Link to="/recipes" className='nav-buttons'>Your Recipes</Link>
+            <Link to="/new-recipe" className='nav-buttons'>New Recipe</Link>
+            <Link to="/search" className='nav-buttons'>Search Recipes</Link>
             <button className="btn btn-logout" onClick={handleLogout}>Logout</button>
           </>
         ) : (

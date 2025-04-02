@@ -1,6 +1,8 @@
 import React from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 import { Link } from "react-router-dom";
+import '../Styles/Footer.css'
+
 
 const teamMembers = [
     {
