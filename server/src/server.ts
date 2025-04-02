@@ -1,10 +1,15 @@
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const forceDatabaseRefresh = false;
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 import express, { Request, Response, NextFunction } from 'express';
-import { join } from 'path';
 import cors from 'cors';
 import sequelize from './config/connection.js';
 import routes from './routes/index.js';
@@ -15,7 +20,11 @@ const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+  origin: [
+    'http://localhost:3000', 
+    'http://127.0.0.1:3000',
+    'https://munchmap.onrender.com'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
@@ -41,7 +50,7 @@ app.use('/api/*', (req: Request, res: Response) => {
 });
 
 // Serves static files in the entire client's dist folder
-app.use(express.static('../client/dist'));
+app.use(express.static(join(__dirname, '../../client/dist')));
 
 // Catch-all route to handle client-side routing
 app.get('*', (_req, res) => {
