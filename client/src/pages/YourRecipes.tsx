@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { getRecipes, deleteRecipe } from '../api/recipeAPI';
 import { MealTypes } from '../interfaces/Recipe';
 
+
+
 interface Recipe {
   id: number;
   title: string;

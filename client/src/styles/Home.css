@@ -3,7 +3,7 @@
     text-align: center;
     margin: 2rem 0;
     background-size:cover;
-    text-shadow: 5px 5px 5px #510c4b;
+    text-shadow: 5px 5px 5px #1c031a;
     font-family: 'Aprilla Grotesk', serif; 
     margin-top: 3.5rem;                                   
             
@@ -14,7 +14,7 @@
     text-align: center;
     margin: 2rem 0;
     background-size:cover;
-    text-shadow: 5px 5px 5px #601515;
+    text-shadow: 5px 5px 5px #230424;
     font-family: 'Sweet Milk', sans-serif;
                                                 
 }
@@ -24,8 +24,9 @@
     align-items: center;
     flex-direction: column;
     margin-top: 3rem;
+    background-color: #580b4f;
 }
 
 #root{
-    background-color: #841277;
+    background-color: #580b4f;
 }
