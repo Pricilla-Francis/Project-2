@@ -8,6 +8,8 @@ interface AuthenticatedRequest extends Request {
   userId?: number;
 }
 
+const router = Router();
+
 // Middleware to verify JWT token
 const verifyToken = (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
   const token = req.headers.authorization?.split(' ')[1];
@@ -27,7 +29,7 @@ const verifyToken = (req: AuthenticatedRequest, res: Response, next: NextFunctio
 };
 
 // Get current user data
-export const getCurrentUser = async (req: AuthenticatedRequest, res: Response) => {
+router.get('/me', verifyToken, async (req: AuthenticatedRequest, res: Response) => {
   try {
     if (!req.userId) {
       return res.status(401).json({ message: 'User not authenticated' });
@@ -46,24 +48,22 @@ export const getCurrentUser = async (req: AuthenticatedRequest, res: Response) =
     console.error('Error in getCurrentUser:', error);
     return res.status(500).json({ message: 'Error fetching user data' });
   }
-};
+});
 
-// Login function to authenticate a user
-export const login = async (req: Request, res: Response) => {
+// Login route
+router.post('/login', async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;  // Extract username and password from request body
+    const { username, password } = req.body;
     console.log('Login attempt received:', { username, hasPassword: !!password });
 
     if (!username || !password) {
       return res.status(400).json({ message: 'Username and password are required' });
     }
 
-    // Find the user in the database by username
     const user = await User.findOne({
       where: { username },
     });
 
-    // If user is not found, send an authentication failed response
     if (!user) {
       console.log('User not found:', username);
       return res.status(401).json({ message: 'Authentication failed: User not found' });
@@ -77,25 +77,20 @@ export const login = async (req: Request, res: Response) => {
     });
 
     console.log('Comparing passwords...');
-    // Compare the provided password with the stored hashed password
     const passwordIsValid = await bcrypt.compare(password, user.password);
     console.log('Password valid:', passwordIsValid);
     
-    // If password is invalid, send an authentication failed response
     if (!passwordIsValid) {
       console.log('Password validation failed');
       return res.status(401).json({ message: 'Authentication failed: Invalid password' });
     }
 
-    // Get the secret key from environment variables
     const secretKey = process.env.JWT_SECRET || '';
     console.log('JWT_SECRET exists:', !!secretKey);
 
-    // Generate a JWT token for the authenticated user
     const token = jwt.sign({ username, userId: user.id }, secretKey, { expiresIn: '1h' });
     console.log('Token generated successfully');
     
-    // Return both token and user data
     return res.json({ 
       token,
       userId: user.id,
@@ -104,15 +99,55 @@ export const login = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Login error:', error);
-    return res.status(500).json({ message: 'Internal server error during login' });
+    return res.status(500).json({ message: 'Error during login' });
   }
-};
+});
 
-// Create a new router instance
-const router = Router();
+// Signup route
+router.post('/signup', async (req: Request, res: Response) => {
+  try {
+    const { username, email, password } = req.body;
 
-// POST /login - Login a user
-router.post('/login', login);  // Define the login route
-router.get('/me', verifyToken, getCurrentUser);
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: 'Username, email, and password are required' });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({
+      where: { username }
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ message: 'Username already exists' });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create new user
+    const user = await User.create({
+      username,
+      email,
+      password: hashedPassword
+    });
+
+    // Generate token
+    const token = jwt.sign(
+      { username: user.username, userId: user.id },
+      process.env.JWT_SECRET || '',
+      { expiresIn: '1h' }
+    );
+
+    return res.status(201).json({
+      token,
+      userId: user.id,
+      username: user.username,
+      email: user.email
+    });
+  } catch (error) {
+    console.error('Signup error:', error);
+    return res.status(500).json({ message: 'Error during signup' });
+  }
+});
 
 export default router;  // Export the router instance
