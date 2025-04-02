@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 interface User {
   id: number;
@@ -18,7 +17,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     // Check for stored token
@@ -48,6 +46,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (error) {
       console.error('Error fetching user data:', error);
       localStorage.removeItem('token');
+      setUser(null);
     }
   };
 
@@ -57,28 +56,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
-        credentials: 'include',
         body: JSON.stringify({ username, password }),
+        credentials: 'include'
       });
-
-      const data = await response.json();
 
       if (!response.ok) {
-        console.error('Login failed:', data.message);
-        throw new Error(data.message || 'Login failed');
+        throw new Error('Login failed');
       }
 
-      const { token } = data;
-      localStorage.setItem('token', token);
-      
-      // Set user data immediately after successful login
-      setUser({
-        id: data.userId,
-        username: data.username,
-        email: data.email
-      });
+      const data = await response.json();
+      localStorage.setItem('token', data.token);
+      setUser(data.user);
     } catch (error) {
       console.error('Login error:', error);
       throw error;
@@ -86,9 +75,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    setUser(null);
     localStorage.removeItem('token');
-    navigate('/login');
+    setUser(null);
   };
 
   const signup = async (data: { username: string; email: string; password: string }) => {
@@ -97,19 +85,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
         },
         body: JSON.stringify(data),
+        credentials: 'include'
       });
 
-      const responseData = await response.json();
-
       if (!response.ok) {
-        throw new Error(responseData.message || 'Signup failed');
+        throw new Error('Signup failed');
       }
 
-      // After successful signup, log the user in
-      await login(data.username, data.password);
+      const result = await response.json();
+      localStorage.setItem('token', result.token);
+      setUser(result.user);
     } catch (error) {
       console.error('Signup error:', error);
       throw error;

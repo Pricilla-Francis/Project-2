@@ -1,17 +1,10 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
+import { AuthProvider } from './context/AuthContext';
 
 import App from './App';
 
-import ErrorPage from './pages/ErrorPage.tsx';
-import Home from './pages/Home.tsx';
-import Login from './pages/Login.tsx';
-import YourRecipes from './pages/YourRecipes.tsx';
-import Team from './pages/Team.tsx';
-import Privacy from './pages/Privacy.tsx';
-import AboutUs from './pages/Aboutus.tsx';
-import ContactUs from './pages/Contactus.tsx';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -20,11 +13,19 @@ import YourRecipes from './pages/YourRecipes';
 import NewRecipe from './pages/NewRecipe';
 import EditRecipe from './pages/EditRecipe';
 import SearchRecipes from './pages/SearchRecipes';
+import Team from './pages/Team';
+import Privacy from './pages/Privacy';
+import AboutUs from './pages/Aboutus';
+import ContactUs from './pages/Contactus';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: (
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -60,22 +61,21 @@ const router = createBrowserRouter([
         element: <ContactUs />
       },
       {
-        path: '/recipes/new',
+        path: "/new-recipe",
         element: <NewRecipe />
       },
       {
-        path: '/recipes/edit/:id',
+        path: "/edit-recipe/:id",
         element: <EditRecipe />
       },
       {
-        path: '/search',
+        path: "/search",
         element: <SearchRecipes />
       }
     ]
   }
-])
+]);
 
-const rootElement = document.getElementById('root');
-if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
-}
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <RouterProvider router={router} />
+);

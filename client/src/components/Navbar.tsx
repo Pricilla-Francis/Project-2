@@ -15,27 +15,20 @@ const Navbar = () => {
   };
 
   return (
-    <div className="display-flex justify-space-between align-center py-2 px-5 mint-green">
-      <h1>
-        MunchMap
-      </h1>
+    <nav className="display-flex justify-space-between align-center py-2 px-5 mint-green">
       <div>
-        {
-          // Conditional rendering based on loginCheck state
-          !loginCheck ? (
-            // Render login button if user is not logged in
-            <button className="btn" type='button'>
-              <Link to='/login'>Login</Link>
-            </button>
-          ) : (
-            <Link
-              to="/login"
-              className="btn btn-primary"
-            >
-              Login
-            </Link>
-          )}
-        </div>
+        <h1>MunchMap</h1>
+      </div>
+      <div>
+        {!isLoggedIn ? (
+          <Link to="/login" className="btn btn-primary">
+            Login
+          </Link>
+        ) : (
+          <button className="btn" onClick={handleLogout}>
+            Logout
+          </button>
+        )}
       </div>
     </nav>
   );
