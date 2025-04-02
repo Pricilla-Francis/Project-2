@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { User } from '../models/index.js';  // Fixed import path
-import jwt from 'jsonwebtoken';  // Import the JSON Web Token library
-import bcrypt from 'bcrypt';  // Import the bcrypt library for password hashing
+import * as jwt from 'jsonwebtoken';  // Import the JSON Web Token library
+import * as bcrypt from 'bcrypt';  // Import the bcrypt library for password hashing
 
 // Extend Request type to include userId
 interface AuthenticatedRequest extends Request {
@@ -28,12 +28,14 @@ const verifyToken = (req: AuthenticatedRequest, res: Response, next: NextFunctio
   }
 };
 
+
 // Get current user data
 router.get('/me', verifyToken, async (req: AuthenticatedRequest, res: Response) => {
   try {
     if (!req.userId) {
       return res.status(401).json({ message: 'User not authenticated' });
     }
+
 
     const user = await User.findByPk(req.userId, {
       attributes: ['id', 'username', 'email']
