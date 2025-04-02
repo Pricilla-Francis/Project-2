@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import { AuthProvider } from './context/AuthContext';
-import './Styles/navbar.css';
+import './Styles/Navbar.css';
 import './Styles/Footer.css';
 import "@fortawesome/fontawesome-free/css/all.css";
 
