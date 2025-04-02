@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import '../styles/Home.css';
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -14,6 +16,11 @@ const Home = () => {
   }, [user, navigate]);
 
   return (
+
+    <div className="container1">
+      <h1 className='title-2'>Welcome to Recipe Manager</h1>
+      <p className='p1' >Please log in to manage your recipes.</p>
+
     <div className="min-h-screen bg-dark-background">
       <div className="main-content">
         <div className="container mx-auto px-6 py-12">
@@ -57,6 +64,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };

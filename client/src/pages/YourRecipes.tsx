@@ -3,6 +3,21 @@ import { Link } from 'react-router-dom';
 import { getRecipes, deleteRecipe } from '../api/recipeAPI';
 import { MealTypes, Recipe } from '../interfaces/Recipe';
 
+
+
+interface Recipe {
+  id: number;
+  title: string;
+  image: string;
+  ingredients: string;
+  instructions: string;
+  mealType: string;
+  region: string;
+  userId: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 const REGIONS = [
   'All Regions',
   'Asian',
@@ -27,6 +42,7 @@ const REGIONS = [
   'Fusion',
   'Other'
 ];
+
 
 const YourRecipes = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
