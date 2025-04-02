@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { User } from '../models/index.js';  // Fixed import path
-import jwt from 'jsonwebtoken';  // Import the JSON Web Token library
-import bcrypt from 'bcrypt';  // Import the bcrypt library for password hashing
+import * as jwt from 'jsonwebtoken';  // Import the JSON Web Token library
+import * as bcrypt from 'bcrypt';  // Import the bcrypt library for password hashing
 
 // Extend Request type to include userId
 interface AuthenticatedRequest extends Request {
@@ -85,8 +85,8 @@ router.post('/login', async (req: Request, res: Response) => {
       return res.status(401).json({ message: 'Authentication failed: Invalid password' });
     }
 
-    const secretKey = process.env.JWT_SECRET || '';
-    console.log('JWT_SECRET exists:', !!secretKey);
+  // Get the secret key from environment variables
+  const secretKey = process.env.JWT_SECRET || '';
 
     const token = jwt.sign({ username, userId: user.id }, secretKey, { expiresIn: '1h' });
     console.log('Token generated successfully');

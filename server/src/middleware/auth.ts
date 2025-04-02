@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 
 // Define the interface for the JWT payload
 interface JwtPayload {
@@ -31,10 +31,6 @@ export const authenticateToken = (req: AuthenticatedRequest, res: Response, next
 
     // Get the secret key from the environment variables
     const secretKey = process.env.JWT_SECRET || '';
-    if (!secretKey) {
-      console.error('JWT_SECRET is not set');
-      return res.status(500).json({ message: 'Server configuration error' });
-    }
 
     // Verify the JWT token
     const decoded = jwt.verify(token, secretKey) as JwtPayload;
