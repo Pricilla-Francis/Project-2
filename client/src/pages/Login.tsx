@@ -38,7 +38,7 @@ const Login = () => {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h2 className="welcome">Welcome Back</h2>
-          <p className="mt-2 text-dark-text-muted">
+          <p className="sign-in">
             Please sign in to your account
           </p>
         </div>
@@ -67,7 +67,7 @@ const Login = () => {
               />
             </div>
 
-            <div>
+            <div className='password'>
               <label htmlFor="password" className="block text-dark-text font-medium mb-2">
                 Password
               </label>
@@ -87,16 +87,16 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="w-full py-3 bg-dark-primary text-dark-text rounded hover:bg-opacity-80 transition-colors"
+              className="signin-btn"
             >
               Sign In
             </button>
           </div>
 
           <div className="text-center">
-            <p className="text-dark-text-muted">
+            <p className="sign-up">
               Don't have an account?{' '}
-              <Link to="/signup" className="text-dark-primary hover:underline">
+              <Link to="/signup" className="text-light-primary hover:underline">
                 Sign up
               </Link>
             </p>
