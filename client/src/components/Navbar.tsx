@@ -1,7 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+pricilla-css
+import { Link } from 'react-router-dom';
+import auth from '../utils/auth';
+import '../styles/Navbar.css';  
+
 import { useAuth } from '../context/AuthContext';
 import '../styles/Navbar.css';
+main
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -18,10 +24,16 @@ const Navbar = () => {
   };
 
   return (
+pricilla-css
+    <div className="display-flex justify-space-between align-center py-2 px-5 purple-background">
+      <h1 className="title1">
+        Munch Map
+
 
     <div className="display-flex justify-space-between align-center py-2 px-5 mint-green">
       <h1>
         MunchMap
+main
       </h1>
       <div>
         {
@@ -53,8 +65,15 @@ const Navbar = () => {
           </>
         )}
       </div>
+ pricilla-css
+    </div>
+    
+  )
+}
+
     </nav>
   );
 };
+main
 
 export default Navbar;
