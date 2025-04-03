@@ -1,6 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { User } from '../models/index.js';  // Fixed import path
-import * as jwt from 'jsonwebtoken';  // Import the JSON Web Token library
+import pkg from 'jsonwebtoken';
+const { sign, verify } = pkg;
 import * as bcrypt from 'bcrypt';  // Import the bcrypt library for password hashing
 
 // Extend Request type to include userId
@@ -20,7 +21,7 @@ const verifyToken = (req: AuthenticatedRequest, res: Response, next: NextFunctio
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || '') as { userId: number, username: string };
+    const decoded = verify(token, process.env.JWT_SECRET || '') as { userId: number, username: string };
     req.userId = decoded.userId;
     next();
   } catch (error) {
@@ -88,7 +89,7 @@ router.post('/login', async (req: Request, res: Response) => {
     }
 
     const secretKey = process.env.JWT_SECRET || 'your-secret-key';
-    const token = jwt.sign({ userId: user.id, username: user.username }, secretKey, { expiresIn: '1h' });
+    const token = sign({ userId: user.id, username: user.username }, secretKey, { expiresIn: '1h' });
     console.log('Token generated successfully');
     
     return res.json({ 
@@ -134,7 +135,7 @@ router.post('/signup', async (req: Request, res: Response) => {
     });
 
     // Generate token
-    const token = jwt.sign(
+    const token = sign(
       { username: user.username, userId: user.id },
       process.env.JWT_SECRET || '',
       { expiresIn: '1h' }

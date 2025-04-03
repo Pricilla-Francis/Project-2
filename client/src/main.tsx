@@ -9,15 +9,6 @@ import "@fortawesome/fontawesome-free/css/all.css";
 
 import App from './App';
 
-
-import ErrorPage from './pages/ErrorPage.tsx';
-import Home from './pages/Home.tsx';
-import Login from './pages/Login.tsx';
-import YourRecipes from './pages/YourRecipes.tsx';
-import Team from './pages/Team.tsx';
-import Privacy from './pages/Privacy.tsx';
-import AboutUs from './pages/Aboutus.tsx';
-import ContactUs from './pages/Contactus.tsx';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -30,7 +21,6 @@ import Team from './pages/Team';
 import Privacy from './pages/Privacy';
 import AboutUs from './pages/Aboutus';
 import ContactUs from './pages/Contactus';
-
 
 const router = createBrowserRouter([
   {
@@ -73,7 +63,6 @@ const router = createBrowserRouter([
       {
         path: "/contactus",
         element: <ContactUs />
-
       },
       {
         path: "/new-recipe",
@@ -86,7 +75,6 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <SearchRecipes />
-
       }
     ]
   }

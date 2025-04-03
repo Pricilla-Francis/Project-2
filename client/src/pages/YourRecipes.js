@@ -52,8 +52,13 @@ const YourRecipes = () => {
             if (!data) {
                 throw new Error('Failed to fetch recipes');
             }
-            // Filter recipes by current user
-            const userRecipes = data.filter(recipe => recipe.userId === user.id);
+            // Filter recipes by current user and ensure all required fields are present
+            const userRecipes = data
+                .filter(recipe => recipe.userId === user.id)
+                .map(recipe => ({
+                ...recipe,
+                image: recipe.image || '/default-recipe-image.jpg' // Provide a default image if none exists
+            }));
             setRecipes(userRecipes);
         }
         catch (err) {

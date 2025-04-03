@@ -4,21 +4,6 @@ import { getRecipes, deleteRecipe } from '../api/recipeAPI';
 import { MealTypes, Recipe } from '../interfaces/Recipe';
 import { useAuth } from '../context/AuthContext';
 
-
-
-interface Recipe {
-  id: number;
-  title: string;
-  image: string;
-  ingredients: string;
-  instructions: string;
-  mealType: string;
-  region: string;
-  userId: number;
-  createdAt: string;
-  updatedAt: string;
-}
-
 const REGIONS = [
   'All Regions',
   'Asian',
@@ -43,7 +28,6 @@ const REGIONS = [
   'Fusion',
   'Other'
 ];
-
 
 const YourRecipes = () => {
   const { user } = useAuth();
@@ -73,8 +57,14 @@ const YourRecipes = () => {
         throw new Error('Failed to fetch recipes');
       }
 
-      // Filter recipes by current user
-      const userRecipes = data.filter(recipe => recipe.userId === user.id);
+      // Filter recipes by current user and ensure all required fields are present
+      const userRecipes = data
+        .filter(recipe => recipe.userId === user.id)
+        .map(recipe => ({
+          ...recipe,
+          image: recipe.image || '/default-recipe-image.jpg' // Provide a default image if none exists
+        }));
+      
       setRecipes(userRecipes);
     } catch (err) {
       setError('Failed to fetch recipes');

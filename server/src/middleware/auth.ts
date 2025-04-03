@@ -31,18 +31,11 @@ export const authenticateToken = (req: AuthenticatedRequest, res: Response, next
       return res.status(401).json({ message: 'No token provided' });
     }
 
-    // Get the secret key from the environment variables
-
-    const secretKey = process.env.JWT_SECRET || 'your-secret-key';
-    
-    // Verify the JWT token
-    const decoded = verify(token, secretKey) as JwtPayload;
-    
-    // Attach the user ID to the request object
+    // Verify the token
+    const decoded = verify(token, process.env.JWT_SECRET || '') as JwtPayload;
     req.userId = decoded.userId;
-    next();
+    return next();
   } catch (error) {
-    console.error('Authentication error:', error);
-    return res.status(401).json({ message: 'Invalid token' });
+    return res.status(403).json({ message: 'Invalid token' });
   }
 };

@@ -40,13 +40,13 @@ app.use(express.json());
 app.use('/api', routes);
 
 // Error handling middleware
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong!' });
 });
 
 // 404 handler for API routes
-app.use('/api/*', (req: Request, res: Response) => {
+app.use('/api/*', (_req: Request, res: Response) => {
   res.status(404).json({ message: 'API route not found' });
 });
 
