@@ -4,7 +4,7 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const forceDatabaseRefresh = false; // Always false for local development
+const forceDatabaseRefresh = true; // Temporarily set to true to recreate the database
 
 import dotenv from 'dotenv';
 dotenv.config();
