@@ -6,7 +6,6 @@ import { useAuth } from '../context/AuthContext';
 
 
 
-
 const Home = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -19,7 +18,7 @@ const Home = () => {
 
   return (
     <div className="container">
-      <h1 className>Welcome to Recipe Manager</h1>
+      <h1>Welcome to Recipe Manager</h1>
       <p>Please log in to manage your recipes.</p>
       <p>Once logged in, you can view and manage your recipes.</p>
       <p>Click the button to log in.</p>
