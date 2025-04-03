@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Motto from './components/Motto';
+import Navbar from './components/Navbar.js';
+import Footer from './components/Footer.js';
+import Motto from './components/Motto.js';
 
 function App() {
   return (

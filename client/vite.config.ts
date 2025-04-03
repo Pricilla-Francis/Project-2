@@ -4,24 +4,16 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  envPrefix: 'VITE_',
   server: {
-    port: 3000,
-    open: true,
+    port: Number(process.env.PORT) || 3000,
+    host: true, // Listen on all addresses
     proxy: {
       '/api': {
-        target: 'https://munchmap.onrender.com',
+        target: 'http://localhost:3001',
         changeOrigin: true,
-        secure: true,
-      },
-      '/auth': {
-        target: 'https://munchmap.onrender.com',
-        changeOrigin: true,
-        secure: true
-      },
-    },
-  },
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true
+        secure: false,
+      }
+    }
   }
 });

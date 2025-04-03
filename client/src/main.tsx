@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext.js';
 import './Styles/Navbar.css';
 import './Styles/Footer.css';
 import "@fortawesome/fontawesome-free/css/all.css";
 
 import App from './App';
 
-import ErrorPage from './pages/ErrorPage';
-import Home from './pages/Home';
+import ErrorPage from './pages/ErrorPage.js';
+import Home from './pages/Home.js';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import YourRecipes from './pages/YourRecipes';

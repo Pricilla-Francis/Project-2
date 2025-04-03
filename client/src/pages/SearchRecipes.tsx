@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { searchRecipes, getRecipeDetails } from '../api/spoonacularAPI';
 import { createRecipe } from '../api/recipeAPI';
-import { useAuth } from '../context/AuthContext';
-import { MealTypes } from '../interfaces/Recipe';
+import { useAuth } from '../context/AuthContext.js';
+import { MealTypes } from '../interfaces/Recipe.js';
 import { useNavigate } from 'react-router-dom';
 
 interface SpoonacularRecipe {

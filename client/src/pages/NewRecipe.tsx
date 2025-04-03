@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { createRecipe } from '../api/recipeAPI';
-import { type Recipe, MealTypes } from '../interfaces/Recipe';
+import { useAuth } from '../context/AuthContext.js';
+import { createRecipe } from '../api/recipeAPI.js';
+import { type Recipe, MealTypes } from '../interfaces/Recipe.js';
 import { Button, Input, Card, CardContent, CardHeader, CardTitle, Textarea, Label } from '../components/ui';
 
 const REGIONS = [

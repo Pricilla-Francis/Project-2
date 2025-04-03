@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getRecipes, deleteRecipe } from '../api/recipeAPI';
-import { MealTypes, Recipe } from '../interfaces/Recipe';
-import { useAuth } from '../context/AuthContext';
+import { getRecipes, deleteRecipe } from '../api/recipeAPI.js';
+import { MealTypes, Recipe } from '../interfaces/Recipe.js';
+import { useAuth } from '../context/AuthContext.js';
 
 const REGIONS = [
   'All Regions',
