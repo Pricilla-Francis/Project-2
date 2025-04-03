@@ -4,6 +4,21 @@ import { getRecipes, deleteRecipe } from '../api/recipeAPI';
 import { MealTypes, Recipe } from '../interfaces/Recipe';
 import { useAuth } from '../context/AuthContext';
 
+
+
+interface Recipe {
+  id: number;
+  title: string;
+  image: string;
+  ingredients: string;
+  instructions: string;
+  mealType: string;
+  region: string;
+  userId: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 const REGIONS = [
   'All Regions',
   'Asian',
@@ -28,6 +43,7 @@ const REGIONS = [
   'Fusion',
   'Other'
 ];
+
 
 const YourRecipes = () => {
   const { user } = useAuth();

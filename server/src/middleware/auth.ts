@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import pkg from 'jsonwebtoken';
 const { verify } = pkg;
 
+
 // Define the interface for the JWT payload
 interface JwtPayload {
   username: string;
@@ -31,8 +32,9 @@ export const authenticateToken = (req: AuthenticatedRequest, res: Response, next
     }
 
     // Get the secret key from the environment variables
-    const secretKey = process.env.JWT_SECRET || 'your-secret-key';
 
+    const secretKey = process.env.JWT_SECRET || 'your-secret-key';
+    
     // Verify the JWT token
     const decoded = verify(token, secretKey) as JwtPayload;
     

@@ -1,0 +1,29 @@
+.navbar {
+  background-color:white;
+}
+.navbar-brand {
+  color:#580b4f;
+  font-size: 28px;
+  align-items: center;
+  text-align: center;
+  font-family: 'cursive', serif;
+  background-color: white;
+ 
+}
+
+.navbar-container{
+  background-origin: white;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  text-align: center;
+
+}
+
+.btn-danger{
+  color: var(--heliotrope);
+  color: white;
+}

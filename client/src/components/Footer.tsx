@@ -52,7 +52,9 @@ export const Privacy: React.FC = () => {
             </p>
             <h2>Contact Us</h2>
             <p>
+
                 If you have any questions about this privacy policy, please contact us at support@example.com.
+          
             </p>
         </div>
     );
