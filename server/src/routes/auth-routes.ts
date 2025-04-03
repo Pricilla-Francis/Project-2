@@ -87,21 +87,21 @@ router.post('/login', async (req: Request, res: Response) => {
       return res.status(401).json({ message: 'Authentication failed: Invalid password' });
     }
 
-    const secretKey = process.env.JWT_SECRET || '';
-    console.log('JWT_SECRET exists:', !!secretKey);
-
-    const token = jwt.sign({ username, userId: user.id }, secretKey, { expiresIn: '1h' });
+    const secretKey = process.env.JWT_SECRET || 'your-secret-key';
+    const token = jwt.sign({ userId: user.id, username: user.username }, secretKey, { expiresIn: '1h' });
     console.log('Token generated successfully');
     
     return res.json({ 
       token,
-      userId: user.id,
-      username: user.username,
-      email: user.email
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email
+      }
     });
   } catch (error) {
     console.error('Login error:', error);
-    return res.status(500).json({ message: 'Error during login' });
+    return res.status(500).json({ message: 'Internal server error during login' });
   }
 });
 

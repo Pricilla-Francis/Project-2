@@ -2,8 +2,9 @@ services:
   - type: web
     name: project-2
     env: node
-    buildCommand: npm install && npm run build
-    startCommand: npm run preview
+    buildCommand: npm run render-build
+    startCommand: npm start
     envVars:
-      - key: 
+      - key: NODE_ENV
+        value: production
         sync: false 

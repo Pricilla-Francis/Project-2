@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -13,6 +14,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
+    navigate('/');
   };
 
   return (
@@ -30,43 +32,26 @@ const Navbar = () => {
               <Link to='/login'>Login</Link>
 
     <nav className="navbar">
-      <div className="container navbar-container">
-        <div className="navbar-links">
-          <Link to="/" className="navbar-brand">
-            Recipe App
-          </Link>
-          {isLoggedIn && (
-            <>
-              <Link to="/recipes" className="navbar-link">
-                My Recipes
-              </Link>
-              <Link to="/search" className="navbar-link">
-                Search Recipes
-              </Link>
-              <Link to="/recipes/new" className="navbar-link">
-                New Recipe
-              </Link>
-            </>
-          )}
-        </div>
-        <div>
-          {isLoggedIn ? (
-            <button
-              onClick={handleLogout}
-              className="btn btn-danger"
-            >
-              Logout
-
-            </button>
-          ) : (
-            <Link
-              to="/login"
-              className="btn btn-primary"
-            >
-              Login
-            </Link>
-          )}
-        </div>
+      <div className="navbar-brand">
+        <Link to="/" className="navbar-logo">
+          <h1>MunchMap</h1>
+        </Link>
+      </div>
+      
+      <div className="navbar-links">
+        {isLoggedIn ? (
+          <>
+            <Link to="/recipes" className='nav-buttons'>Your Recipes</Link>
+            <Link to="/new-recipe" className='nav-buttons'>New Recipe</Link>
+            <Link to="/search" className='nav-buttons'>Search Recipes</Link>
+            <button className="btn btn-logout" onClick={handleLogout}>Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="btn btn-primary">Login</Link>
+            <Link to="/signup" className="btn btn-secondary">Sign Up</Link>
+          </>
+        )}
       </div>
     </nav>
   );

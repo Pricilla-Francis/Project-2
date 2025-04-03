@@ -1,37 +1,29 @@
 import React from "react";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Link } from "react-router-dom";
-
-
-
-
-
-
 
 const Footer = () => {
     return (
-        <>
-            {/* <TeamSection /> */}
-            <footer style={{ border: "1px solid black", width: "100%", position: "fixed", height: "4rem", bottom: 0, display: "flex", justifyContent: "center" }}>
-                <div className="links" style={{ display: "flex", justifyContent: "space-between", width: "70%", color: "orange" }}>
+        <footer className="footer">
+            <div className="footer-content">
+                <div className="footer-links">
                     <Link to="/team">Meet The Team</Link>
                     <Link to="/aboutus">About MunchMap</Link>
                     <Link to="/contactus">Contact Us</Link>
-                    <Link to="/privacy" className="text-blue-600">Privacy</Link>
-                    <div style={{ display: "flex", gap: "1rem" }}>
-                        <a href="https://twitter.com" className="text-blue-500">
-                            <i className="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://linkedin.com" className="text-blue-700">
-                            <i className="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://facebook.com" className="text-blue-600">
-                            <i className="fab fa-facebook"></i>
-                        </a>
-                    </div>
+                    <Link to="/privacy">Privacy</Link>
                 </div>
-            </footer >
-        </>
+                <div className="footer-social">
+                    <a href="https://twitter.com" className="social-link">
+                        <i className="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://linkedin.com" className="social-link">
+                        <i className="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://facebook.com" className="social-link">
+                        <i className="fab fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
     );
 };
 
@@ -60,7 +52,9 @@ export const Privacy: React.FC = () => {
             </p>
             <h2>Contact Us</h2>
             <p>
-                If you have any questions aexporty policy, please contact us at support@example.com.
+
+                If you have any questions about this privacy policy, please contact us at support@example.com.
+          
             </p>
         </div>
     );
