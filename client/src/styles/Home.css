@@ -1,5 +1,9 @@
-.container{
-    min-height: 75vh;
-    margin-top: 30rem
+.title2{
+    margin-top: 3rem;
+} 
+.title3{
+    font-family: '', serif;
+    font-size: 25px;
+    color: rgb(112, 20, 112);
+    margin-top: 2rem;
 }
- 
