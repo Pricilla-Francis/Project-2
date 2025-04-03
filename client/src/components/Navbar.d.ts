@@ -1,2 +1,1 @@
-declare const Navbar: () => import("react/jsx-runtime").JSX.Element;
-export default Navbar;
+import '../styles/Navbar.css';

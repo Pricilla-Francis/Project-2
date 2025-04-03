@@ -1,29 +1,54 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Sofia&display=swap');
+
+
+
+
 .navbar {
-  background-color:white;
-}
-.navbar-brand {
-  color:#580b4f;
-  font-size: 28px;
-  align-items: center;
-  text-align: center;
-  font-family: 'cursive', serif;
-  background-color: white;
- 
-}
+    background-color:white;
+  }
 
-.navbar-container{
-  background-origin: white;
-}
+  .navbar-brand {
+    font-size: 28px;
+    align-items: center;
+    text-align: center;
+    font-family: 'sofia', serif;
+    background-color: transparent;
+   
+  }
+  
+  .navbar-container{
+    background-origin: white;
+    font-family: 'sofia', serif;
+  }
+  
+  *{
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    text-align: center;
+  
+  }
+  
+  .btn-danger{
+    color: var(--heliotrope);
+    color: white;
+  }
 
-*{
-  margin: 0;
-  padding: 0;
-  align-items: center;
-  text-align: center;
+  .navbar-links{
+    font-family: 'sofia', serif;
+  }
 
-}
+  .nav-buttons{
+    color: rgb(206, 91, 230);
+  }
 
-.btn-danger{
-  color: var(--heliotrope);
-  color: white;
-}
+  .motto{
+    background-color: rgb(206, 91, 230);
+    font-family: 'sofia', serif;
+    color: white;
+  }
+
+  .navbar-logo{
+    color: rgb(206, 91, 230);
+  }
