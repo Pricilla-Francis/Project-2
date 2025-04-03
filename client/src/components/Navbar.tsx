@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import auth from '../utils/auth';
+import '../styles/Navbar.css';  
 
 const Navbar = () => {
   // State to track the login status
@@ -19,9 +20,9 @@ const Navbar = () => {
   }, [loginCheck]);  // Dependency array ensures useEffect runs when loginCheck changes
 
   return (
-    <div className="display-flex justify-space-between align-center py-2 px-5 mint-green">
-      <h1>
-        Authentication Review
+    <div className="display-flex justify-space-between align-center py-2 px-5 purple-background">
+      <h1 className="title1">
+        Munch Map
       </h1>
       <div>
         {
@@ -40,6 +41,7 @@ const Navbar = () => {
         }
       </div>
     </div>
+    
   )
 }
 

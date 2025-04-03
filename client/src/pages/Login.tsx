@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Auth from '../utils/auth';  // Import the Auth utility for managing authentication state
 import { login } from "../api/authAPI";  // Import the login function from the API
 import { UserLogin } from "../interfaces/UserLogin";  // Import the interface for UserLogin
-
+import '../styles/Login.css';  // Import the CSS styles for the Login component
 const Login = () => {
   const navigate = useNavigate();
   // State to manage the login form data
@@ -39,7 +39,7 @@ const Login = () => {
   return (
     <div className='form-container'>
       <form className='form login-form' onSubmit={handleSubmit}>
-        <h1>Login</h1>
+        <h1 className="login">Login</h1>
         {/* Username input field */}
         <div className="form-group">
           <label>Username</label>
