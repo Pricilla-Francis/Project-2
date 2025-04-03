@@ -4,14 +4,7 @@ import { useAuth } from '../context/AuthContext';
 
 import '../styles/Login.css'; 
 
- pricilla-css
-import Auth from '../utils/auth';  // Import the Auth utility for managing authentication state
-import { login } from "../api/authAPI";  // Import the login function from the API
-import { UserLogin } from "../interfaces/UserLogin";  // Import the interface for UserLogin
-import '../styles/Login.css';  // Import the CSS styles for the Login component
-=======
 
-main
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -43,32 +36,6 @@ const Login = () => {
   };
 
   return (
-pricilla-css
-    <div className='form-container'>
-      <form className='form login-form' onSubmit={handleSubmit}>
-        <h1 className="login">Login</h1>
-        {/* Username input field */}
-        <div className="form-group">
-          <label>Username</label>
-          <input 
-            className="form-input"
-            type='text'
-            name='username'
-            value={loginData.username || ''}
-            onChange={handleChange}
-          />
-        </div>
-        {/* Password input field */}
-        <div className="form-group">
-          <label>Password</label>
-          <input 
-            className="form-input"
-            type='password'
-            name='password'
-            value={loginData.password || ''}
-            onChange={handleChange}
-          />
-
 
     <div className="min-h-screen flex items-center justify-center bg-dark-background px-4">
       <div className="max-w-md w-full space-y-8">
@@ -77,7 +44,6 @@ pricilla-css
           <p className="sign-in">
             Please sign in to your account
           </p>
-main
         </div>
 
 

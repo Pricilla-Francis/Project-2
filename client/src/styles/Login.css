@@ -1,21 +1,3 @@
-pricilla-css
-.login{
-    font-size: 1.7rem;
-}
-.form-container{
-    margin-left: 10rem;
-    margin-right: 10rem;
-}
-
-@media (max-width: 768px) {
-    .form-container{
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-    .login{
-        font-size: 1.2rem;
-    }
-
 .welcome{
     margin-top: 4.5rem;
     margin-bottom: 2rem;
@@ -49,5 +31,4 @@ pricilla-css
 .sign-uo{
     font-size: 2rem;
     color: aliceblue;
- main
 }
